@@ -9,7 +9,7 @@ public class Main {
 	 private static int cmd_input_store() {
 	    try {
 	    Scanner myInput = new Scanner( System.in );
-	    System.out.println( "Hello there, Please enter  Integar for  Sieve of Erastosthenes prime number check: " );
+	    System.out.println( "Hello there! , Please enter  Integar for  Sieve of Erastosthenes prime number check: " );
 	    int console_input = myInput.nextInt();
 	    return console_input;
 	    }
