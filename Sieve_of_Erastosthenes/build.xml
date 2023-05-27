@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project name="Ant-Test" default="main" basedir=".">
+    <!-- use variables for folder locations -->
+    <property name="src.dir" location="src" />
+    <property name="build.dir" location="bin" />
+    <property name="dist.dir" location="dist" />
+    <property name="docs.dir" location="docs" />
+
+    <!-- delete existing build and clean directory -->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+        <delete dir="${docs.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+
+	
+	
+    <!-- create new build from empty directory-->
+    <target name="makedir">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${docs.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+	
+	
+    <!-- compule the java code  -->
+    <target name="compile" depends="clean, makedir">
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+        </javac>
+
+    </target>
+
+	
+	
+    <!-- create the Javadoc -->
+    <target name="docs" depends="compile">
+        <javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+            <!-- include all files -->
+             <fileset dir="${src.dir}">
+                <include name="**" />
+             </fileset>
+        </javadoc>
+    </target>
+
+	
+	
+    <!--create jar file  -->
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}\test_ant.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="s_of_e.Main" />
+            </manifest>
+        </jar>
+    </target>
+
+
+	
+	<!--Run the deployable jar file  -->
+    <target name="run" depends="jar">
+        <java jar="${dist.dir}\test_ant.jar" fork = "true">
+        	
+        </java>
+    </target>
+
+	
+	
+    <target name="main" depends="compile, jar, docs, run">
+        <description>Main target</description>
+    </target>
+	
+	
+	
+
+	
+	
+	
+	
+
+</project>
